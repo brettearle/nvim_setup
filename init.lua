@@ -24,5 +24,18 @@ vim.cmd([[colorscheme kanagawa]])
 require("keymaps")
 
 --options
-
 require("options")
+
+--center cursor
+vim.cmd([[
+  augroup CenterCursor
+    autocmd!
+    autocmd CursorMoved,CursorMovedI * lua CenterCursor()
+  augroup END
+]])
+
+function CenterCursor()
+	local pos = vim.api.nvim_win_get_cursor(0)
+	vim.cmd("normal! zz")
+	vim.api.nvim_win_set_cursor(0, pos)
+end
